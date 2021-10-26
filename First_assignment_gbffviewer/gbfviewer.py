@@ -1,6 +1,7 @@
 import sys
 import os
 import re 
+#Erase the newline in dnaseq and proteinlist
 
 ## Location functions 
 def location(k):
@@ -187,7 +188,7 @@ def dnaseqopt(specificfiles):## Origin to //
                 if line[0:2]=="//":
                     enter = 0
                 if enter==1:
-                    lines2print.append(line)
+                    lines2print.append(line[:-2])
                 if re.search(r'\bORIGIN\b', line):
                     u=str(file.name)+':'
                     print(locusheader(file.name))
@@ -214,9 +215,11 @@ def protseqopt(specificfiles,protseq):#/protein_id\ and after it /translation en
                         p=1
                 if p==1 and re.search(r'\btranslation\b', line):
                     seq=line.split("=")[1]
-                    print(seq[1:len(seq)-1])
+                    print(seq[1:len(seq)-2])
                 if p==1 and not (re.search(r'\btranslation\b', line)):
-                    print(line.split(space)[1])
+                    sequence1=line.split(space)[1]
+                    print(sequence1[:-2])
+
                 #
 
 def protlistopt(specificfiles):#protein id list and product
